@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Reset default browser styles */
+    body, h1, h2 {
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: rgb(205, 177, 131);
+      color: #fff;
+      padding: 20px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 24px;
+    }
+
+    .login-form {
+      display: flex;
+      align-items: center;
+    }
+
+    .login-form label {
+      margin-right: 10px;
+      color: #fff;
+    }
+
+    .login-form input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .login-form button[type="submit"] {
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .bar-area {
+      padding: 40px;
+    }
+
+    .bar-counter {
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+
+    .seating-area {
+      padding: 40px;
+    }
+
+    /* Additional styling for bar counter and seating area */
+    .bar-counter h2 {
+      margin-bottom: 10px;
+    }
+
+    /* Add your additional CSS styling for shelving, storage, and glassware display elements here */
+  </style>
+</head>
+
+<%- include('header') %>
+<body>
+
+  
+  <style>
+    /* Styles for the h1 element */
+    h1 {
+        text-align: center;
+        font-size: 4rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        background-image: linear-gradient(to right, rgb(124, 181, 181), rgb(124, 181, 181));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<h1 style="margin: 20px; margin-top: 70px;">PetedIn</h1>
+  
+<%- include('book') %>
+
+<%- include('footer') %>
+</body>
+</html>

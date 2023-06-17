@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News Search</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <%- include('header') %>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    .shadow-div {
+      width: calc(100% - 40px);
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    /* Add some nice font and other styles */
+    .shadow-div {
+      font-family: "Roboto", sans-serif;
+      color: #333333;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    /* Add padding and margin to the text inside the div */
+    .shadow-div p {
+      margin: 0;
+      padding: 10px 0;
+    }
+
+    /* Add a gradient background */
+    .shadow-div {
+      background: linear-gradient(to bottom right, #ffffff, #f2f2f2);
+    }
+
+    /* Add a subtle border */
+    .shadow-div {
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Add a nice-looking button */
+    .shadow-div .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .shadow-div .btn:hover {
+      background-color: #45a049;
+    }
+
+    /* Style the title */
+    .shadow-div h2 {
+      color: #333333;
+      font-size: 24px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      margin-top: 0;
+    }
+
+    /* Media query for responsiveness on phones */
+    @media (max-width: 480px) {
+      .shadow-div {
+        padding: 15px;
+        font-size: 16px;
+      }
+
+      /* Adjust the title for smaller screens */
+      .shadow-div h2 {
+        font-size: 20px;
+        text-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shadow-div">
+    <h2>Article Search</h2>
+
+    <form action="/news" method="post">
+      <input type="text" name="query" placeholder="Enter your search query">
+      <button type="submit">Search</button>
+    </form>
+
+    <% if (articleContent) { %>
+      <h2><%= articleContent.title %></h2>
+      <% articleContent.bodyText.split('\n').forEach(function(paragraph) { %>
+        <% if (paragraph.trim().length > 0) { %>
+          <p><%= paragraph %></p>
+        <% } %>
+      <% }); %>
+    <% } else { %>
+      <p>No articles found.</p>
+    <% } %>
+  </div>
+</body>
+</html>
+<%- include('footer') %>

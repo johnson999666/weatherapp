@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web Parser</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+    }
+    
+    header {
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+    }
+    
+    header form {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    header form label {
+      width: 100px;
+    }
+    
+    header form input {
+      width: 200px;
+    }
+    
+    header form button {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+    
+    div.result {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-shadow: 0 0 5px 0 #ccc;
+    }
+    
+    p {
+      margin: 0;
+    }
+    
+    @media (max-width: 768px) {
+      header form {
+        flex-direction: column;
+      }
+    }
+    
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+    
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 0;
+    }
+    
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    
+    div.result {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    
+    div.result > h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 0;
+    }
+    
+    div.result > p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    
+    .submit-button {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .submit-button:hover {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <form id="searchForm" class="login-form" action="/search" method="GET">
+      <label for="login">Search:</label>
+      <input type="text" id="login" name="query">
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </header>
+  
+  <div id="searchResults">
+    <% if (results && results.length > 0) { %>
+      <h2>Search Results for '<%= searchQuery %>'</h2>
+      <% results.forEach((result) => { %>
+        <div class="result">
+          <h3><%= result.title %></h3>
+          <p><%= result.snippet %></p>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p>No results found.</p>
+    <% } %>
+  </div>
+</body>
+</html>

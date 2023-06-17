@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Catalog</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+   <%- include('header') %>
+  <div class="container">
+    <h1 style="margin-top: 50px;">Product Catalog</h1>
+    <p>Cart Count: <span id="cartCount"><%= cartCount %></span></p>
+
+    <% if (checkoutSubmitted) { %>
+    
+      <ul class="product-list">
+        <% selectedProducts.forEach(product => { %>
+          <li class="product">
+            <h2 class="product-title"><%= product.title %></h2>
+            <img src="<%= product.imageSrc %>" alt="<%= product.title %>" class="product-image">
+            <p class="product-price"><%= product.price %></p>
+            <form action="/checkout" method="POST">
+              <!-- Your form fields here -->
+              <button type="submit" class="checkout-btn checkout-button">Checkout</button>
+
+
+            </form>
+            <form action="/reset" method="POST">
+          <button type="submit" style="padding: 10px 20px; background-color: #4caf50; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin-top: 10px;">Reset</button>
+        </form>
+          </li>
+          <li>
+           
+        
+    
+          </li>
+         
+          
+        <% }) %>
+         
+      </ul>
+      
+    <% } else { %>
+      <ul class="product-list">
+        <% productCatalog.forEach(product => { %>
+          <li class="product">
+            <h2 class="product-title"><%= product.title %></h2>
+            <img src="<%= product.imageSrc %>" alt="<%= product.title %>" class="product-image">
+            <p class="product-price"><%= product.price %></p>
+            <form action="/addToCart" method="POST">
+              <input type="hidden" name="productId" value="<%= product.id %>">
+              <button type="submit">Add to Cart</button>
+            </form>
+          </li>
+        <% }) %>
+      </ul>
+      <form action="/checkout" method="POST">
+        <button type="submit" class="checkout-btn">Checkout</button>
+      </form>
+    <% } %>
+  </div>
+  <%- include('footer') %>
+  <script>
+    function makePayment() {
+  var cardNumber = prompt("Please enter your credit card number:");
+  var cvv = prompt("Please enter the CVV number on the back of your card:");
+  var expirationDate = prompt("Please enter the expiration date of your card (MM/YYYY):");
+
+  // You can perform validation or other necessary checks on the input here
+
+  alert("Payment Successful! Thank you for your purchase!");
+}
+
+var buttons = document.getElementsByClassName("checkout-button");
+
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", function() {
+    makePayment();
+  });
+}
+
+function makePayment() {
+  var cardNumber = prompt("Please enter your credit card number:");
+  var cvv = prompt("Please enter the CVV number on the back of your card:");
+  var expirationDate = prompt("Please enter the expiration date of your card (MM/YYYY):");
+
+  // You can perform validation or other necessary checks on the input here
+
+  alert("Payment Successful! Thank you for your purchase!");
+}
+
+
+  </script>
+</body>
+</html>

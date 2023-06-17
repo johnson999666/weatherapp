@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Purchase</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .product-image {
+      width: 500px; /* Set a fixed width */
+      height: 500px; /* Set a fixed height */
+      margin-bottom: 20px;
+    }
+
+    .color-palette {
+      margin-bottom: 20px;
+    }
+
+    .color-option {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-right: 10px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .color-option:hover {
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .purchase-button {
+      font-size: 24px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #f8c400;
+      color: black;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .purchase-button:hover {
+      background-color: #ffc107;
+    }
+    @media (max-width: 600px) {
+      .product-image {
+        max-width: 90%; /* Adjust the maximum width for smaller screens */
+      }
+
+      .color-option {
+        width: 30px; /* Adjust the size of color options for smaller screens */
+        height: 30px;
+      }
+
+      .purchase-button {
+        font-size: 20px; /* Adjust the font size of the purchase button for smaller screens */
+        padding: 8px 16px; /* Adjust the padding of the purchase button for smaller screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Product Purchase</h1>
+
+  <img id="product-image" class="product-image" src="images/red.jpg" alt="T-Shirt">
+  
+  <div class="color-palette">
+    <div class="color-option" style="background-color: #ff0000;" onclick="changeColor('#ff0000')"></div>
+    <div class="color-option" style="background-color: #00ff00;" onclick="changeColor('#00ff00')"></div>
+    <div class="color-option" style="background-color: #0000ff;" onclick="changeColor('#0000ff')"></div>
+  </div>
+
+  <button class="purchase-button">Purchase</button>
+
+  <script>
+    function changeColor(color) {
+      var productImage = document.getElementById('product-image');
+      var imageUrl = getProductImageUrl(color);
+      productImage.src = imageUrl;
+    }
+  
+    function getProductImageUrl(color) {
+      // Define the mapping of color to image URLs
+      var colorMap = {
+        '#ff0000': 'images/red.jpg',
+        '#00ff00': 'images/green.jpg',
+        '#0000ff': 'images/blue.jpg'
+      };
+  
+      // Get the corresponding image URL for the color
+      var imageUrl = colorMap[color];
+  
+      // Modify the base URL as per your image directory structure
+      var baseUrl = '';
+  
+      return baseUrl + imageUrl;
+    }
+  </script>
+  
+</body>
+</html>

@@ -95,7 +95,7 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-const port = process.env.PORT || 3010;
+const port = process.env.PORT || 3000;
 const host = '0.0.0.0';
 app.listen(port, host, () => {
   console.log(`Server listening on port ${port}`);

@@ -1,0 +1,97 @@
+
+
+
+<style>
+    .ab {
+    
+    height: 500px;
+   
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+   
+  }
+  
+  .zz {
+    background-image: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 70%), linear-gradient(to right, rgb(124, 181, 181), rgb(205, 177, 131));
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .contain {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+    width: 90%;
+    
+  }
+  
+  .flexb {
+    display: flex;
+    flex-wrap: wrap;
+    
+    max-width: calc(50% - 10px);
+    
+  }
+  
+  .flexb img {
+    max-width: 100%;
+    margin-right: 20px;
+    display: flex;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    border: 2px solid #ccc;
+  }
+  
+  .flexb p {
+    margin: 0;
+    flex-basis: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .flexb {
+      max-width: 100%;
+    }
+    .contain {
+      flex-wrap: wrap;
+    }
+  }
+  
+  .mother {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    
+  }
+  
+  .m {
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+<div class="ab zz" >
+    <div class="contain">
+      <div class="flexb">
+        <img class="mother" src="images/me.jpg" alt="Your Image">
+
+      </div>
+      <div class="flexb m">
+        <p>As a web developer, I specialize in designing, building, and maintaining websites. I use programming languages such as HTML, CSS, and JavaScript to create dynamic and responsive websites. My goal is to create visually appealing and user-friendly websites that are optimized for performance and search engine visibility. I stay up-to-date with the latest trends and technologies in the field to ensure that my skills and knowledge are always current.</p>
+      </div>
+    </div>
+  </div>
+  
