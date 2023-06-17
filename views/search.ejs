@@ -75,8 +75,6 @@
   </style>
 </head>
 <body>
-  <h1 style="text-align: center; padding: 20px; margin: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 40px;">WEATHER</h1>
-  <%- include('first') %>
   <div class="container">
     <div class="search-bar">
       <div class="search-form">
@@ -91,6 +89,9 @@
         </form>
       </div>
     </div>
+  <h1 style="text-align: center; padding: 20px; margin: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 40px;">WEATHER</h1>
+  <%- include('first') %>
+  
 
     <% weatherArticles.forEach(function(article) { %>
       <div class="weather-card">
