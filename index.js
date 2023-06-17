@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 
 const app = express();
-const port = 3000;
+
 
 const UNSPLASH_ACCESS_KEY = 'vED9k9K6oUnDwtabdRg9_GO8_m_8btNLqcxu9exHeCU';
 const OPENWEATHERMAP_API_KEY = '6ba32f41bb0c05cbb768a80023a771e0';
@@ -95,7 +95,8 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running on port ${port}`);
-  });
-  
+const port = process.env.PORT || 3010;
+const host = '0.0.0.0';
+app.listen(port, host, () => {
+  console.log(`Server listening on port ${port}`);
+});
