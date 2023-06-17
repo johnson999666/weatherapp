@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .search-form {
+      margin: 20px auto;
+      max-width: 400px;
+    }
+
+    .weather-card {
+      margin: 20px auto;
+      max-width: 400px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .weather-image {
+      max-width: 200px;
+      margin-bottom: 20px;
+    }
+
+    .forecast-card {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+
+    .forecast-date {
+      font-weight: bold;
+    }
+
+    .forecast-icon {
+      width: 50px;
+    }
+
+    .forecast-description {
+      flex: 1;
+      margin-left: 10px;
+    }
+
+    .forecast-rain {
+      color: #0099ff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Weather App</h1>
+  <div class="search-form">
+    <form action="/" method="GET">
+      <input type="text" name="city" placeholder="Enter city name" required>
+      <select name="days">
+        <option value="5" selected>5-day Forecast</option>
+        <option value="7">7-day Forecast</option>
+        <option value="10">10-day Forecast</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+  </div>
+
+  <% if (searchedImage) { %>
+    <div class="weather-card">
+      <% if (imageURL) { %>
+        <img src="<%= imageURL %>" alt="City Image" class="weather-image">
+      <% } %>
+
+      <% if (searchedWeather) { %>
+        <h2>Current Weather in <%= cityName %></h2>
+        <% if (temperature) { %>
+          <p>Temperature: <%= temperature %>°C</p>
+        <% } %>
+      <% } %>
+
+      <% if (forecast) { %>
+        <h2><%= forecast.list.length %>-day Forecast</h2>
+        <% forecast.list.forEach((item) => { %>
+          <div class="forecast-card">
+            <p class="forecast-date"><%= item.date %></p>
+            <img src="<%= item.iconURL %>" alt="Weather Icon" class="forecast-icon">
+            <p class="forecast-description"><%= item.description %></p>
+            <% if (item.willRain) { %>
+              <p class="forecast-rain">Rain Expected</p>
+            <% } %>
+            <p>Temperature: <%= item.temp %>°C</p>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+  <% } %>
+</body>
+
+</html>
