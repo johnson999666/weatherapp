@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>American Weather Map</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      height: 400px;
+      width: 600px;
+      margin: 0 auto;
+    }
+
+    @media only screen and (max-width: 768px) {
+      #map {
+        height: 300px;
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([37.0902, -95.7129], 4); // Set initial map view to the center of the US
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const cities = [
+    { name: 'New York', lat: 40.7128, lon: -74.0060 },
+      { name: 'Los Angeles', lat: 34.0522, lon: -118.2437 },
+      { name: 'Chicago', lat: 41.8781, lon: -87.6298 },
+      { name: 'Houston', lat: 29.7604, lon: -95.3698 },
+      { name: 'Phoenix', lat: 33.4484, lon: -112.0740 },
+      { name: 'Philadelphia', lat: 39.9526, lon: -75.1652 },
+      { name: 'San Antonio', lat: 29.4241, lon: -98.4936 },
+      { name: 'San Diego', lat: 32.7157, lon: -117.1611 },
+      { name: 'Dallas', lat: 32.7767, lon: -96.7970 },
+      { name: 'San Jose', lat: 37.3382, lon: -121.8863 },
+      { name: 'Austin', lat: 30.2672, lon: -97.7431 },
+      { name: 'Jacksonville', lat: 30.3322, lon: -81.6557 },
+      { name: 'San Francisco', lat: 37.7749, lon: -122.4194 },
+      { name: 'Indianapolis', lat: 39.7684, lon: -86.1581 },
+      { name: 'Columbus', lat: 39.9612, lon: -82.9988 },
+      { name: 'Fort Worth', lat: 32.7555, lon: -97.3308 },
+      { name: 'Charlotte', lat: 35.2271, lon: -80.8431 },
+      { name: 'Seattle', lat: 47.6062, lon: -122.3321 },
+      { name: 'Denver', lat: 39.7392, lon: -104.9903 },
+      { name: 'Washington, D.C.', lat: 38.9072, lon: -77.0369 },
+      { name: 'Boston', lat: 42.3601, lon: -71.0589 },
+      { name: 'El Paso', lat: 31.7619, lon: -106.4850 },
+      { name: 'Nashville', lat: 36.1627, lon: -86.7816 },
+      { name: 'Detroit', lat: 42.3314, lon: -83.0458 },
+      { name: 'Oklahoma City', lat: 35.4676, lon: -97.5164 },
+      { name: 'Portland', lat: 45.5051, lon: -122.6750 },
+      { name: 'Las Vegas', lat: 36.1699, lon: -115.1398 },
+      { name: 'Memphis', lat: 35.1495, lon: -90.0490 },
+      { name: 'Louisville', lat: 38.2527, lon: -85.7585 },
+      { name: 'Baltimore', lat: 39.2904, lon: -76.6122 },
+      { name: 'London', lat: 51.5074, lon: -0.1278 },
+      { name: 'Paris', lat: 48.8566, lon: 2.3522 },
+      { name: 'Tokyo', lat: 35.6895, lon: 139.6917 },
+      { name: 'Sydney', lat: -33.8651, lon: 151.2099 },
+      { name: 'Rome', lat: 41.9028, lon: 12.4964 },
+      { name: 'Beijing', lat: 39.9042, lon: 116.4074 },
+      { name: 'Moscow', lat: 55.7558, lon: 37.6176 },
+      { name: 'Cape Town', lat: -33.9249, lon: 18.4241 },
+      { name: 'Rio de Janeiro', lat: -22.9068, lon: -43.1729 },
+      { name: 'Istanbul', lat: 41.0082, lon: 28.9784 },
+      { name: 'Cairo', lat: 30.0444, lon: 31.2357 },
+      { name: 'Buenos Aires', lat: -34.6037, lon: -58.3816 },
+      { name: 'Bangkok', lat: 13.7563, lon: 100.5018 },
+      { name: 'Barcelona', lat: 41.3851, lon: 2.1734 },
+      { name: 'Mumbai', lat: 19.0760, lon: 72.8777 },
+      { name: 'Dubai', lat: 25.2048, lon: 55.2708 },
+      { name: 'Berlin', lat: 52.5200, lon: 13.4050 },
+      { name: 'Amsterdam', lat: 52.3667, lon: 4.8945 },
+      { name: 'Seoul', lat: 37.5665, lon: 126.9780 },
+      { name: 'Athens', lat: 37.9838, lon: 23.7275 },
+      { name: 'Toronto', lat: 43.6510, lon: -79.3470 },
+      { name: 'Auckland', lat: -36.8485, lon: 174.7633 },
+      { name: 'Dubai', lat: 25.2048, lon: 55.2708 },
+      { name: 'Vienna', lat: 48.2082, lon: 16.3738 },
+      { name: 'Cairo', lat: 30.0444, lon: 31.2357 },
+      { name: 'Singapore', lat: 1.3521, lon: 103.8198 },
+      { name: 'Copenhagen', lat: 55.6761, lon: 12.5683 },
+      { name: 'Prague', lat: 50.0755, lon: 14.4378 },
+      { name: 'Stockholm', lat: 59.3293, lon: 18.0686 },
+      { name: 'Buenos Aires', lat: -34.6037, lon: -58.3816 }
+    ];
+
+    const apiKey = '6ba32f41bb0c05cbb768a80023a771e0';
+
+    cities.forEach(city => {
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&appid=${apiKey}&units=imperial`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          const { name, main, weather } = data;
+          const { temp } = main;
+          const conditions = weather[0].main;
+
+          const marker = L.marker([city.lat, city.lon]).addTo(map);
+          marker.bindPopup(`
+            <b>${name}</b><br>
+            Temperature: ${temp} &deg;F<br>
+            Conditions: ${conditions}
+          `);
+        })
+        .catch(error => console.error(error));
+    });
+  </script>
+</body>
+</html>
+
+ 

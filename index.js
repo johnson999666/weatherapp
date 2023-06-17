@@ -94,6 +94,34 @@ app.get('/', (req, res) => {
   }
 });
 
+app.get('/w', (req, res) => {
+  res.render('w');
+});
+
+
+
+const NEWS_API_KEY = '5de12005ffc04d2abda96b241dc1ecbb'; // Replace with your News API key
+
+
+
+app.get('/search', async (req, res) => {
+  try {
+    const weatherArticles = await fetchWeatherArticles();
+    res.render('search', { weatherArticles });
+  } catch (error) {
+    console.log('Error fetching weather articles:', error);
+    res.render('error');
+  }
+});
+
+async function fetchWeatherArticles() {
+  const response = await fetch(`https://newsapi.org/v2/everything?q=weather&apiKey=${NEWS_API_KEY}`);
+  const data = await response.json();
+  const articles = data.articles.slice(0, 4); // Get the first 4 articles
+
+  return articles;
+}
+
 // Start the server
 const port = process.env.PORT || 3000;
 const host = '0.0.0.0';
