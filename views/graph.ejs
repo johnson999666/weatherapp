@@ -16,17 +16,12 @@
     }
     
     .chart {
-      width: 400px;
+      width: 100%;
+      max-width: 400px;
       height: 200px;
       margin: 10px;
     }
-
-    @media screen and (max-width: 800px) {
-      .chart {
-        width: 100%;
-      }
-    }
-    
+  
     .search-container {
       display: flex;
       align-items: center;
@@ -39,6 +34,8 @@
       border: none;
       border-radius: 5px 0 0 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      width: 70%;
+      max-width: 300px;
     }
     
     .search-button {
@@ -62,30 +59,10 @@
       text-align: center;
       margin-bottom: 10px;
     }
-    .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
-  align-items: flex-start; /* Add this line */
-}
-
-.chart {
-  width: 400px;
-  height: 200px;
-  margin: 10px;
-  flex: 1 1 400px; /* Add this line */
-}
-
-@media screen and (max-width: 800px) {
-  .chart {
-    width: calc(50% - 20px); /* Update this line */
-    height: 200px;
-    margin: 10px;
-  }
-}
-
   </style>
+  
+    
+
 </head>
 <body>
   <div class="search-container">
@@ -122,17 +99,18 @@
     function getWeather() {
       const inputCity = document.getElementById('cityInput').value;
       city = inputCity.trim() || 'Washington, D.C.';
-      document.getElementById('cityTitle').textContent = `Weather in ${city}`;
+      document.getElementById('cityTitle').textContent = `Weather in ${city.charAt(0).toUpperCase() + city.slice(1)}`;
       const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+      
       // Function to handle keyup event on search input
-function handleKeyUp(event) {
-  if (event.keyCode === 13) {
-    getWeather();
-  }
-}
-
-// Add event listener to search input
-document.getElementById('cityInput').addEventListener('keyup', handleKeyUp);
+      function handleKeyUp(event) {
+        if (event.keyCode === 13) {
+          getWeather();
+        }
+      }
+      
+      // Add event listener to search input
+      document.getElementById('cityInput').addEventListener('keyup', handleKeyUp);
 
       // Fetch weather data from the API
       fetch(apiUrl)
