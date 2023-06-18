@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Weather Stories</title>
-  <style>
+<style>
     body {
       font-family: Arial, sans-serif;
     }
@@ -139,16 +135,3 @@
         <button type="submit">Search</button>
       </form>
     </div>
-    
-    <h1 style="text-align: center; padding: 20px; margin: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 40px;">WEATHER</h1>
-    <%- include('first') %>
-    <% weatherArticles.forEach(function(article) { %>
-      <div class="weather-card">
-        <h2><%= article.title %></h2>
-        <p><%= article.description %></p>
-        <img src="<%= article.urlToImage %>" alt="Article Image">
-      </div>
-    <% }); %>
-  </div>
-</body>
-</html>

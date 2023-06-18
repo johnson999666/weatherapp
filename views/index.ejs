@@ -61,17 +61,7 @@
 
 <body>
   <h1>Weather App</h1>
-  <div class="search-form">
-    <form action="/" method="GET">
-      <input type="text" name="city" placeholder="Enter city name" required>
-      <select name="days">
-        <option value="5" selected>5-day Forecast</option>
-        <option value="7">7-day Forecast</option>
-        <option value="10">10-day Forecast</option>
-      </select>
-      <button type="submit">Search</button>
-    </form>
-  </div>
+  <%- include('weatherS') %>
 
   <% if (searchedImage) { %>
     <div class="weather-card">
