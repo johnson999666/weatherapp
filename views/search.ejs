@@ -1,9 +1,15 @@
-<!DOCTYPE html>
-<html>
+
+   
+
+
+  <!DOCTYPE html>
+<html lang="en">
+
 <head>
-  <title>Weather Stories</title>
-  
-       <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
@@ -55,11 +61,11 @@
       font-weight: bold;
     }
   </style>
-
-  </style>
 </head>
- <body>
-    <h1 style="text-align: center; padding: 20px; margin: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 40px;">WEATHER</h1>
+
+<body>
+  <h1>Weather App</h1>
+  
      <%- include('weatherS') %>
     <%- include('first') %>
     <% weatherArticles.forEach(function(article) { %>
@@ -70,5 +76,7 @@
       </div>
     <% }); %>
   </div>
+
 </body>
+
 </html>
