@@ -97,7 +97,12 @@ app.get('/', (req, res) => {
 app.get('/w', (req, res) => {
   res.render('w');
 });
-
+app.get('/graph', (req, res) => {
+  res.render('graph');
+});
+app.get('/error', (req, res) => {
+  res.render('error');
+});
 
 
 const NEWS_API_KEY = '5de12005ffc04d2abda96b241dc1ecbb'; // Replace with your News API key

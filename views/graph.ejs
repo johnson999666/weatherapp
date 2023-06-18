@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Graphs</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .chart {
+      width: 400px;
+      height: 200px;
+      margin: 10px;
+    }
+
+    @media screen and (max-width: 800px) {
+      .chart {
+        width: 100%;
+      }
+    }
+    
+    .search-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .search-input {
+      padding: 10px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .search-button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      background-color: #4caf50;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s;
+    }
+    
+    .search-button:hover {
+      background-color: #45a049;
+    }
+    
+    .city-title {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="search-container">
+    <input type="text" id="cityInput" class="search-input" placeholder="Enter city name">
+    <button onclick="getWeather()" class="search-button">Search</button>
+  </div>
+  
+  <h1 class="city-title" id="cityTitle">Weather in Washington, D.C.</h1>
+  
+  <div class="container">
+    <div class="chart-container">
+      <canvas id="temperatureChart" class="chart"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="humidityChart" class="chart"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="pressureChart" class="chart"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="windSpeedChart" class="chart"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="precipitationChart" class="chart"></canvas>
+    </div>
+  </div>
+  
+  <script>
+    // Replace 'YOUR_API_KEY' with your actual OpenWeatherMap API key
+    const apiKey = '6ba32f41bb0c05cbb768a80023a771e0';
+    let city = 'Washington, D.C.'; // Default city
+    let temperatureChart, humidityChart, pressureChart, windSpeedChart, precipitationChart;
+    
+    function getWeather() {
+      const inputCity = document.getElementById('cityInput').value;
+      city = inputCity.trim() || 'Washington, D.C.';
+      document.getElementById('cityTitle').textContent = `Weather in ${city}`;
+      const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+      // Function to handle keyup event on search input
+function handleKeyUp(event) {
+  if (event.keyCode === 13) {
+    getWeather();
+  }
+}
+
+// Add event listener to search input
+document.getElementById('cityInput').addEventListener('keyup', handleKeyUp);
+
+      // Fetch weather data from the API
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          if (data.cod === '200' && data.list.length > 0) {
+            clearCharts(); // Clear existing charts
+            
+            const timestamps = data.list.map(entry => entry.dt);
+            const dates = timestamps.map(timestamp => {
+              const date = new Date(timestamp * 1000);
+              return date.toLocaleDateString();
+            });
+            
+            // Temperature Chart
+            const temperatures = data.list.map(entry => entry.main.temp);
+            temperatureChart = createChart('temperatureChart', 'Temperature', 'Temperature (°C)', dates, temperatures);
+            
+            // Humidity Chart
+            const humidity = data.list.map(entry => entry.main.humidity);
+            humidityChart = createChart('humidityChart', 'Humidity', 'Humidity (%)', dates, humidity);
+            
+            // Pressure Chart
+            const pressure = data.list.map(entry => entry.main.pressure);
+            pressureChart = createChart('pressureChart', 'Pressure', 'Pressure (hPa)', dates, pressure);
+            
+            // Wind Speed Chart
+            const windSpeed = data.list.map(entry => entry.wind.speed);
+            windSpeedChart = createChart('windSpeedChart', 'Wind Speed', 'Wind Speed (m/s)', dates, windSpeed);
+            
+            // Precipitation Chart
+            const precipitation = data.list.map(entry => {
+              if (entry.rain && entry.rain['3h']) {
+                return entry.rain['3h'];
+              } else if (entry.snow && entry.snow['3h']) {
+                return entry.snow['3h'];
+              } else {
+                return 0;
+              }
+            });
+            precipitationChart = createChart('precipitationChart', 'Precipitation', 'Precipitation (mm)', dates, precipitation);
+          } else {
+            redirectToErrorPage();
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          redirectToErrorPage();
+        });
+    }
+    
+    // Function to create a line chart using Chart.js
+    function createChart(chartId, label, yAxisLabel, dates, data) {
+      const ctx = document.getElementById(chartId).getContext('2d');
+      return new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: dates,
+          datasets: [{
+            label: label,
+            data: data,
+            borderColor: 'blue',
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              display: true,
+              title: {
+                display: true,
+                text: 'Date'
+              }
+            },
+            y: {
+              display: true,
+              title: {
+                display: true,
+                text: yAxisLabel
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // Function to clear existing charts
+    function clearCharts() {
+      if (temperatureChart) {
+        temperatureChart.destroy();
+      }
+      if (humidityChart) {
+        humidityChart.destroy();
+      }
+      if (pressureChart) {
+        pressureChart.destroy();
+      }
+      if (windSpeedChart) {
+        windSpeedChart.destroy();
+      }
+      if (precipitationChart) {
+        precipitationChart.destroy();
+      }
+    }
+    
+    // Function to redirect to the error page
+    function redirectToErrorPage() {
+      window.location.href = 'error';
+    }
+    
+    // Initial weather graphs for the default city
+    getWeather();
+  </script>
+</body>
+</html>
