@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Weather</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css">
+    <style>
+        body {
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .weather-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-container">
+        <h1>Current Weather in Washington, D.C.</h1>
+        <div id="weather-info">
+            <p>Temperature: <span id="temperature"></span> &deg;F <i id="weather-icon" class="wi"></i></p>
+            <p>Description: <span id="description"></span></p>
+        </div>
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const apiKey = '6ba32f41bb0c05cbb768a80023a771e0';
+            const weatherEndpoint = `https://api.openweathermap.org/data/2.5/weather?q=Washington,DC,US&appid=${apiKey}`;
+            const temperatureElement = document.getElementById('temperature');
+            const descriptionElement = document.getElementById('description');
+            const weatherIconElement = document.getElementById('weather-icon');
+
+            fetch(weatherEndpoint)
+                .then(response => response.json())
+                .then(data => {
+                    const temperatureKelvin = data.main.temp;
+                    const temperatureFahrenheit = convertKelvinToFahrenheit(temperatureKelvin);
+                    const description = data.weather[0].description;
+                    const weatherIcon = data.weather[0].icon;
+
+                    temperatureElement.textContent = temperatureFahrenheit.toFixed(2);
+                    descriptionElement.textContent = description;
+
+                    // Set weather icon
+                    const iconClass = getWeatherIconClass(weatherIcon);
+                    weatherIconElement.classList.add(iconClass);
+                })
+                .catch(error => {
+                    console.log('Error fetching weather data:', error);
+                    temperatureElement.textContent = 'N/A';
+                    descriptionElement.textContent = 'Error fetching weather data';
+                });
+
+            function convertKelvinToFahrenheit(temperatureKelvin) {
+                return (temperatureKelvin - 273.15) * 9/5 + 32;
+            }
+
+            function getWeatherIconClass(iconCode) {
+                switch (iconCode) {
+                    case '01d':
+                    case '01n':
+                        return 'wi-day-sunny';
+                    case '02d':
+                    case '02n':
+                        return 'wi-day-cloudy';
+                    case '03d':
+                    case '03n':
+                        return 'wi-cloud';
+                    case '04d':
+                    case '04n':
+                        return 'wi-cloudy';
+                    case '09d':
+                    case '09n':
+                        return 'wi-showers';
+                    case '10d':
+                    case '10n':
+                        return 'wi-rain';
+                    case '11d':
+                    case '11n':
+                        return 'wi-thunderstorm';
+                    case '13d':
+                    case '13n':
+                        return 'wi-snow';
+                    case '50d':
+                    case '50n':
+                        return 'wi-fog';
+                    default:
+                        return 'wi-day-sunny'; // Default to sunny icon
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -62,7 +62,6 @@
 <body>
   <h1>Weather App</h1>
   <%- include('weatherS') %>
-
   <% if (searchedImage) { %>
     <div class="weather-card">
       <% if (imageURL) { %>
@@ -72,7 +71,7 @@
       <% if (searchedWeather) { %>
         <h2>Current Weather in <%= cityName %></h2>
         <% if (temperature) { %>
-          <p>Temperature: <%= temperature %>°C</p>
+          <p>Temperature: <%= ((temperature * 9/5) + 32).toFixed(2) %>°F</p>
         <% } %>
       <% } %>
 
@@ -86,7 +85,7 @@
             <% if (item.willRain) { %>
               <p class="forecast-rain">Rain Expected</p>
             <% } %>
-            <p>Temperature: <%= item.temp %>°C</p>
+            <p>Temperature: <%= ((item.temp * 9/5) + 32).toFixed(2) %>°F</p>
           </div>
         <% }); %>
       <% } %>

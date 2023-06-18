@@ -64,12 +64,15 @@
 </head>
 
 <body>
-  <h1>Weather App</h1>
   
+  <h1>Weather App</h1>
+  <%- include('washington') %>
      <%- include('weatherS') %>
+     
     <%- include('first') %>
     <% weatherArticles.forEach(function(article) { %>
       <div class="weather-card">
+       
         <h2><%= article.title %></h2>
         <p><%= article.description %></p>
         <img src="<%= article.urlToImage %>" alt="Article Image">
