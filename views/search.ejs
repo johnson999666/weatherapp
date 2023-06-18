@@ -12,7 +12,143 @@
 </head>
  <body>
     <h1 style="text-align: center; padding: 20px; margin: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 40px;">WEATHER</h1>
-     <%- include('weatherS') %>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+  
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+  
+      .search-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        border-radius: 5px;
+        background: linear-gradient(to right, #4481eb, #04befe);
+      }
+  
+      .search-bar input[type="text"] {
+        flex: 0 0 300px;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px 0 0 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+      }
+  
+      .search-bar button[type="submit"] {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 0 5px 5px 0;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+  
+      .search-bar button[type="submit"]:hover {
+        background-color: #45a049;
+      }
+  
+      .search-bar select {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        margin-left: 10px;
+      }
+  
+      .weather-card {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+      }
+  
+      .weather-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+  
+      .weather-card h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+  
+      .weather-card p {
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+  
+      .weather-card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+      }
+  
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: #fff;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+  
+      .button:hover {
+        background-color: #45a049;
+      }
+  
+      /* Media query for smaller screens */
+    /* Media query for smaller screens */
+    @media (max-width: 600px) {
+    .search-bar {
+      display: block;
+      text-align: center;
+    }
+  
+    .search-bar input[type="text"] {
+      width: 80%;
+      margin-bottom: 10px;
+    }
+  
+    .search-bar button[type="submit"] {
+      width: auto;
+      margin-left: 0;
+    }
+  }
+  
+  
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="search-bar">
+        <form action="/" method="GET">
+          <input type="text" name="city" placeholder="Enter city name" required>
+          <select name="days">
+            <option value="5" selected>5-day Forecast</option>
+            <option value="7">7-day Forecast</option>
+            <option value="10">10-day Forecast</option>
+          </select>
+          <button type="submit">Search</button>
+        </form>
+      </div>
     <%- include('first') %>
     <% weatherArticles.forEach(function(article) { %>
       <div class="weather-card">
