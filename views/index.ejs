@@ -61,21 +61,36 @@
 
 <body>
   <h1>Weather App</h1>
-  <%- include('weatherS') %>
-  <% if (searchedImage) { %>
-    <div class="weather-card">
-      <% if (imageURL) { %>
-        <img src="<%= imageURL %>" alt="City Image" class="weather-image">
-      <% } %>
 
-      <% if (searchedWeather) { %>
+  <div class="search-form">
+    <form action="/" method="GET">
+      <input type="text" name="city" placeholder="Enter city name">
+      <select name="days">
+        <option value="5">5-day Forecast</option>
+        <option value="7">7-day Forecast</option>
+        <option value="10">10-day Forecast</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <% if (imageURL) { %>
+    <div class="weather-card">
+      <img src="<%= imageURL %>" alt="City Image" class="weather-image">
+    </div>
+  <% } %>
+
+  <% if (searchedImage) { %>
+    <% if (searchedWeather) { %>
+      <div class="weather-card">
         <h2>Current Weather in <%= cityName %></h2>
         <% if (temperature) { %>
           <p>Temperature: <%= ((temperature * 9/5) + 32).toFixed(2) %>°F</p>
         <% } %>
-      <% } %>
+      </div>
+    <% } %>
 
-      <% if (forecast) { %>
+    <% if (forecast) { %>
+      <div class="weather-card">
         <h2><%= forecast.list.length %>-day Forecast</h2>
         <% forecast.list.forEach((item) => { %>
           <div class="forecast-card">
@@ -88,8 +103,10 @@
             <p>Temperature: <%= ((item.temp * 9/5) + 32).toFixed(2) %>°F</p>
           </div>
         <% }); %>
-      <% } %>
-    </div>
+      </div>
+    <% } %>
+
+    
   <% } %>
 </body>
 

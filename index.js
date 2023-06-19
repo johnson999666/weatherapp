@@ -10,6 +10,15 @@ const OPENWEATHERMAP_API_KEY = '6ba32f41bb0c05cbb768a80023a771e0';
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
 
+
+function calculateDate(index) {
+  const currentDate = new Date();
+  const nextDate = new Date(currentDate.getTime() + (index * 24 * 60 * 60 * 1000));
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  return nextDate.toLocaleDateString('en-US', options);
+}
+
+
 // Set up a route to handle GET requests
 app.get('/', (req, res) => {
   const cityName = req.query.city;
@@ -62,8 +71,8 @@ app.get('/', (req, res) => {
                 const numDays = parseInt(req.query.days) || 5; // Get the number of days from the query parameter, default to 5 if not provided
 
                 forecast = {
-                  list: forecastList.slice(0, numDays).map((item) => ({
-                    date: item.dt_txt,
+                  list: forecastList.slice(0, numDays).map((item, index) => ({
+                    date: calculateDate(index), // Generate unique dates for each day
                     temp: item.main.temp,
                     iconURL: `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`,
                     description: item.weather[0].description,
@@ -93,6 +102,9 @@ app.get('/', (req, res) => {
     res.render('index', { cityName, imageURL, temperature, searchedImage, searchedWeather, forecast });
   }
 });
+
+// Helper function to calculate the date offset based on the
+
 
 app.get('/w', (req, res) => {
   res.render('w');
